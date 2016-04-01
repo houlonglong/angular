@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lesson" ng-controller="lesson3">
+<link href="bower_components/angular/angular-csp.css">
+<head>
+    <meta charset="UTF-8">
+    <title>表格的绑定</title>
+</head>
+<body>
+<ul>
+    <li><input ng-model="xing" type="text"></li>
+    <li><input ng-model="ming" type="text"></li>
+    <h1>Hello {{xing || ''}}{{ ming ||''}}</h1>
+    <h2>Hello {{FullName}}</h2>
+
+</ul>
+
+<ul >
+    <li ng-repeat="test in UserNameList ">{{test}}</li>
+
+</ul>
+</body>
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+    var app = angular.module("lesson",[]);
+    app.controller("lesson3",function($scope){
+        $scope.xing = '';
+        $scope.ming = '';
+        $scope.$watch('xing',function(){
+            $scope.FullName = $scope.xing + ''+$scope.ming;
+        })
+        $scope.$watch('ming',function(){
+            $scope.FullName = $scope.xing + ''+$scope.ming;
+        })
+        $scope.UserNameList = ['longlong','qingqing','yuanyuan'];
+        $scope.UserInfoList = [
+                ['longlong',28,'天枰座'],
+                ['longlong',28,'天枰座'],
+
+        ]
+    })
+</script>
+</html>

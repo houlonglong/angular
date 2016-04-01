@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="lesson" ng-controller="lesson2"
+      ng-init="Accountld=1212;
+      json = {
+      Accountld:3,
+      AccountNum:'longlong'
+      };
+
+      Week = [1,2,3,4,5,6,0]
+
+      ">
+<head>
+    <title>lessson2</title>
+</head>
+<body>
+<ul>
+    <li>{{json.Accountld}}</li>
+    <li>{{json.AccountNum}}</li>
+    <li>{{Week[6]}}</li>
+    <li>{{Now}}</li>
+
+
+</ul>
+</body>
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+     var app = angular.module("lesson",[]);
+     app.controller("lesson2",function($scope){
+            var now = new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds();
+            $scope.Now = now;
+         $scope.SetTimeer = function(){
+             $scope.$apply(function(){
+                 now = new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds();
+                 $scope.Now = now;
+             })
+         }
+         $scope.SetTimerlnterval = setInterval( $scope.SetTimeer,1000)
+     })
+</script>
+</html> 
