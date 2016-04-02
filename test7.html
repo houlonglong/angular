@@ -24,17 +24,16 @@
                 <th>姓名</th>
                 <th>年龄</th>
                 <th>星座</th>
+                <th>年限</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="x in UserEntityList | orderBy:'age':true">
+            <tr ng-repeat="x in UserEntityList | orderBy:['age','-WorkYear']|filter:{'age':28} ">
                 <td>{{$index+1}}</td>
                 <td>{{x.name}}</td>
                 <td>{{x.age}}</td>
                 <td>{{x.xingzuo}}</td>
-
-
-
+                <td>{{x.WorkYear}}</td>
             </tr>
         </tbody>
 </table>
@@ -58,9 +57,9 @@
 
         }
         $scope.UserEntityList = [
-            {'name':'龙龙', 'age':89, 'xingzuo':"水平"},
-            {'name':'龙龙', 'age':28, 'xingzuo':"水平"},
-            {'name':'龙龙', 'age':1, 'xingzuo':"水平"},
+            {'name':'龙龙', 'age':89, 'xingzuo':"水平",WorkYear:19},
+            {'name':'龙龙', 'age':28, 'xingzuo':"水平",WorkYear:7},
+            {'name':'龙龙', 'age':28, 'xingzuo':"水平",WorkYear:16},
         ]
     })
 </script>

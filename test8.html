@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lesson" ng-controller="lesson3">
+<link href="bower_components/angular/angular-csp.css">
+<head>
+    <meta charset="UTF-8">
+    <title>事件绑定</title>
+</head>
+<body>
+    <div style="margin-bottom: 50px">
+        点击数：<b>{{counter}}</b>
+        <button ng-click="counter = counter+1">点击</button>
+    </div>
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>星座</th>
+            <th>年限</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="x in UserEntityList  ">
+            <td>{{$index+1}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.age}}</td>
+            <td>{{x.xingzuo}}</td>
+            <td>{{x.WorkYear}}</td>
+            <td>
+                <button ng-click="demo(x.name)">删除</button>
+            </td>
+            <td>
+                <button ng-click="add()">增加</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+    var app = angular.module("lesson", []);
+    app.controller("lesson3", function ($scope) {
+
+
+        $scope.UserEntityList = [
+            {'name': '龙龙', 'age': 89, 'xingzuo': "水平", WorkYear: 19},
+            {'name': '龙龙1', 'age': 28, 'xingzuo': "水平", WorkYear: 7},
+            {'name': '龙龙2', 'age': 28, 'xingzuo': "水平", WorkYear: 16},
+        ]
+        console.log($scope.UserEntityList)
+
+        $scope.demo = function (username) {
+            $scope.UserEntityList.forEach(function (user, i, list) {
+                if (username == user.name) {
+                    list.splice(i, 1)
+                }
+            })
+        },
+
+
+
+
+
+        $scope.add = function () {
+            var obj = {'name': '龙龙9', 'age': 28, 'xingzuo': "水平", WorkYear: 16};
+            $scope.UserEntityList.push(obj);
+            console.log($scope.UserEntityList)
+        }
+    })
+</script>
+</html>
