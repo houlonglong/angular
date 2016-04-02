@@ -3,7 +3,7 @@
 <link href="bower_components/angular/angular-csp.css">
 <head>
     <meta charset="UTF-8">
-    <title>表格的绑定</title>
+    <title>表格的对象绑定</title>
 </head>
 <body>
 <ul>
@@ -26,10 +26,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="x in UserInfoList">
-                <td>{{x[0]}}</td>
-                <td>{{x[1]}}</td>
-                <td>{{x[2]}}</td>
+            <tr ng-repeat="x in UserEntityList">
+                <td>{{x.name}}</td>
+                <td>{{x.age}}</td>
+                <td>{{x.xingzuo}}</td>
+
 
 
             </tr>
@@ -49,11 +50,16 @@
             $scope.FullName = $scope.xing + ''+$scope.ming;
         })
         $scope.UserNameList = ['longlong','qingqing','yuanyuan'];
-        $scope.UserInfoList =
-                [['龙龙',28,'天枰座'],['龙龙',28,'天枰座'],['龙龙',28,'天枰座'],
-                ['姫晴',27,'天枰座']]
+        $scope.UserInfoList = {
+                one:[['龙龙',28,'天枰座'],['姫晴',27,'天枰座']],
 
 
+        }
+        $scope.UserEntityList = [
+            {'name':'龙龙', 'age':28, 'xingzuo':"水平"},
+            {'name':'龙龙', 'age':28, 'xingzuo':"水平"},
+            {'name':'龙龙', 'age':28, 'xingzuo':"水平"},
+        ]
     })
 </script>
 </html>
