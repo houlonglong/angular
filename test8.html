@@ -6,11 +6,33 @@
     <title>事件绑定</title>
 </head>
 <body>
+<div>
+    <form   ng-submit="demo()">
+        <ul>
+            <li>姓名：<input type="text" ng-model="newname"></li>
+            <li>年龄：<input type="text" ng-model="newage"></li>
+            <li><input type="submit" value="提交"></li>
+        </ul>
+    </form>
+</div>
+
+
+<div style="margin-bottom: 50px">
+    点击数：<b>{{counter1 }}</b>
+    <input type="text" ng-change="counterClick()" ng-model="counterInput">
+    <input type="text" ng-keypress="counterClick()" ng-model="counterInput1">
+    <button ng-click="counterClick()">点击</button>
+</div>
+
     <div style="margin-bottom: 50px">
-        点击数：<b>{{counter}}</b>
+        点击数：<b>{{counter || 0}}</b>
         <button ng-click="counter = counter+1">点击</button>
     </div>
 
+    <div style="margin-bottom: 50px">
+        <p ng-show="Content">文章的内容</p>
+        <button ng-click="HideContent()">显示</button>
+    </div>
 
     <table>
         <thead>
@@ -69,6 +91,26 @@
             $scope.UserEntityList.push(obj);
             console.log($scope.UserEntityList)
         }
+        $scope.Content = true;
+        $scope.HideContent = function(){
+
+            $scope.Content =  !$scope.Content;
+        }
+        $scope.counter1 = 1;
+        $scope.counterClick  = function(){
+            $scope.counter1 =   $scope.counter1 +1;
+        }
+        $scope.demo = function(){
+
+
+            var name = $scope.newname;
+            var age = $scope.newage;
+            console.log({
+                name:name,
+                age:age
+            })
+        }
+        return false
     })
 </script>
 </html>
