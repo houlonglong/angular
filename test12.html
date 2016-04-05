@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lesson">
+<link href="bower_components/angular/angular-csp.css">
+<head>
+    <meta charset="UTF-8">
+    <title>AngulaJs模块快应用</title>
+    <style>
+        .red{
+            color: red;
+        }
+    </style>
+</head>
+<body ng-controller="FormCtrl">
+<usename >
+    <h1>dsadsa</h1>
+   </usename>
+<h1 usename>111111111</h1>
+
+
+</body>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+  var app = angular.module('lesson',[]);
+  app.controller('FormCtrl',function($scope){
+
+  });
+  app.directive('usename',function(){
+      var  direction={};
+      //E匹配dom节点，A匹配属性key
+      direction.restrict="AE";
+      //direction.template = "第一个指令";
+      direction.template = '<label>请输入用户名<input type="text"></label>';
+      //direction.templateUrl="demo/demo.html";
+      return direction
+  })
+
+
+</script>
+</html>
