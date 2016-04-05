@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lesson">
+<link href="bower_components/angular/angular-csp.css">
+<head>
+    <meta charset="UTF-8">
+    <title>表单的开发</title>
+</head>
+<body ng-controller="FormCtrl">
+<form  ng-submit="PostForm()">
+    <ul>
+        <li>
+            <label>用户名：</label>
+            <input type="text"  ng-model="form.name"></li>
+        </li>
+        <li>
+            <label>昵称：</label>
+            <input type="text"  ng-model="form.nickname" name="nickname"></li>
+        </li>
+        <li>
+            <label>年龄：</label>
+            <input type="text"  ng-model="form.age" name="age"></li>
+        </li>
+        <li>
+            <label>是否已婚：</label>
+            <input type="checkbox"  ng-model="form.ISMarried" name="age"></li>
+        </li>
+        <li>
+            <label>喜爱动物：</label>
+            <input type="radio"  ng-model="form.dongwu" value="猫" >猫
+            <input type="radio"  ng-model="form.dongwu" value="狗">狗
+        </li>
+        <li>
+            <label>城市：</label>
+            <select  ng-model="form.LocationCity">
+                <option   value="">请选择城市</option>
+                <option   value="北京">北京</option>
+                <option  value="上海">上海</option>
+                <option  value="呼市">呼市</option>
+            </select>
+
+        </li>
+        <li>
+            <label>城市：</label>
+            <select   ng-model="form.LocationCity1"
+                      ng-options="obj.text as obj.value for obj in form.LocationCitylist" >
+                <option   value="">请选择城市</option>
+
+            </select>
+
+        </li>
+
+        <li><input type="submit" value="提交"/></li>
+    </ul>
+</form>
+<ul>
+    <li>{{form.name}}</li>
+    <li>{{form.nickname}}</li>
+    <li>{{form.age}}</li>
+    <li>{{form.ISMarried}}</li>
+    <li>{{form.dongwu}}</li>
+    <li>{{form.LocationCity}}</li>
+    <li>{{form.LocationCity1}}</li>
+
+
+</ul>
+</body>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+  var app = angular.module('lesson',[]);
+
+  app.controller('FormCtrl',function($scope){
+      $scope.form = {};
+      $scope.forminitobj = {
+          name:'',
+          nickname:'',
+          age:''
+      }
+      $scope.form.LocationCitylist = [
+          {text:'上海',value:'上海'},
+          {text:'北京',value:'北京'},
+          {text:'呼市',value:'呼市'}
+      ];
+      $scope.PostForm = function(){
+       console.log($scope.form);
+          $scope.form = angular.copy( $scope.forminitobj)
+
+      }
+  })
+
+</script>
+</html>

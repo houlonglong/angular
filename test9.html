@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lesson">
+<link href="bower_components/angular/angular-csp.css">
+<head>
+    <meta charset="UTF-8">
+    <title>控制器</title>
+</head>
+<body>
+<div  ng-controller="MomCtrl">
+    <h1>{{name}}</h1>
+    <h1>地址：{{Location}}</h1>
+    <button ng-click="banjia()">搬家</button>
+    <div style="margin-: 50px" ng-controller="MeCtril">
+        <h1>{{name}}</h1>
+        <h1>地址：{{Location}}</h1>
+        <h3>电话：{{phone}}</h3>
+    </div>
+
+    <div style="margin-: 50px" ng-controller="GFCtril">
+        <h1>{{name}}</h1>
+        <h3>电话：{{phone}}</h3>
+        <button ng-click="call()">打电话</button>
+    </div>
+
+</div>
+
+</body>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+  var app = angular.module('lesson',[]);
+  app.controller('MomCtrl',function($scope){
+      $scope.name = '妈妈'
+      $scope.Location = '中江路879好'
+      $scope.banjia = function(){
+          $scope.Location = '没找好'
+      };
+      $scope.$on('calllonglong',function(){
+          $scope.$broadcast('yougfcall')
+      })
+  })
+  app.controller('MeCtril',function($scope){
+      $scope.name = '龙龙';
+      $scope.phone = '待机';
+      $scope.$on('yougfcall',function(){
+          $scope.phone = '龙龙在接听';
+      })
+  })
+  app.controller('GFCtril',function($scope){
+      $scope.name = '姬晴';
+      $scope.phone = '待机'
+      $scope.call = function(){
+          $scope.phone = '呼叫男朋友的龙龙';
+          $scope.$emit('calllonglong');
+      }
+
+  })
+
+</script>
+</html>

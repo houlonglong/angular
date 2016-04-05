@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lesson">
+<link href="bower_components/angular/angular-csp.css">
+<head>
+    <meta charset="UTF-8">
+    <title>表单的验证</title>
+    <style>
+        .red{
+            color: red;
+        }
+    </style>
+</head>
+<body ng-controller="FormCtrl">
+<form name="myform"  ng-submit="PostForm()">
+    <ul>
+        <li>
+            <label>用户名： </label>
+            <input type="text" name="username" placeholder="请输入用户名" ng-minlength="8" ng-model="username"  ng-maxlength="18"  required>
+            <span class="red" ng-show="myform.username.$dirty && myform.username.$invalid">
+                <span>用户名8到18位的用户名</span>
+                <span ng-show="myform.username.$error.required">用户名不能为空</span>
+            </span>
+        </li>
+        <!-- 支持正则表达式 -->
+        <li>
+            <label>手机号： </label>
+            <input type="tel" name="phone" placeholder="请输入手机号"  ng-model="phone"  ng-pattern="/^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/">
+            <span class="red" ng-show="myform.phone.$dirty  && myform.phone.$invalid">
+                请输入正确手机号
+            </span>
+        </li>
+
+        <li>
+            <label>邮箱： </label>
+            <input type="tel" name="email" placeholder="请输入邮箱地址"  ng-model="email"  ng-pattern="/^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$/">
+            <span class="red" ng-show="myform.email.$dirty  && myform.email.$invalid">
+                请输入邮箱地址
+            </span>
+        </li>
+        <li>
+            <label>用户名： </label>
+            <input type="text" name="name" placeholder="请输入用户名" ng-model="name"  ng-pattern="/^\w{8,18}/">
+            <span class="red" ng-show="myform.name.$dirty && myform.name.$invalid">
+                <span>用户名8到18位的用户名</span>
+            </span>
+        </li>
+        <li>
+            <input ng-disabled="myform.$invalid" type="submit" value="提交">
+        </li>
+    </ul>
+</form>
+
+</body>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+  var app = angular.module('lesson',[]);
+  app.controller('FormCtrl',function($scope){
+
+  })
+
+
+</script>
+</html>
