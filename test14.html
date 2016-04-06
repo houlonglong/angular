@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lesson">
+<link href="bower_components/angular/angular-csp.css">
+<head>
+    <meta charset="UTF-8">
+    <title>AngulaJs订单开发模块</title>
+    <style>
+        li {
+            padding: 18px 8px;
+        }
+    </style>
+</head>
+<body ng-controller="FormCtrl">
+
+
+
+</body>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('lesson', []);
+    app.controller('FormCtrl', function ($scope) {
+         var orderList= [
+             {
+                 orderId : 'GH201603201001',
+                 createTime:'2016-03-20 10:01',
+                 sealer:'专营店卖家',
+                 traffic:'快递已取件',
+                 status:'卖家已经发货'
+
+             }
+         ]
+
+        ];
+    });
+
+
+
+
+</script>
+</html>

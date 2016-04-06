@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lesson">
+<link href="bower_components/angular/angular-csp.css">
+<head>
+    <meta charset="UTF-8">
+    <title>AngulaJs模块快应用下</title>
+    <style>
+        li {
+            padding: 18px 8px;
+        }
+    </style>
+</head>
+<body ng-controller="FormCtrl">
+<ul>
+    <li ng-repeat="userTile in UserTitleList">
+        <label>{{userTile.UserName}}</label><br>
+        <h4>{{userTile.Title}}</h4><span>{{userTile.LikeAmout}}</span>
+        <like content="userTile"></like>
+        <br/>
+        <label>{{userTile.Time}}</label><br/>
+        <ul>
+            <li ng-repeat="likeList in userTile.LikeList">
+                <span>{{likeList.Text}}</span>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+</body>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('lesson', []);
+    app.controller('FormCtrl', function ($scope) {
+        $scope.UserTitleList = [
+            {UserName: 'Tome', Title: '今天天气不错', Time: '2016-3-07', LikeAmout: 0, LikeList: []},
+            {UserName: 'v', Title: '今天要去打篮球', Time: '2016-04-09', LikeAmout: 0, LikeList: []},
+            {UserName: 's', Title: '今天看到一个美女', Time: '2016-04-05', LikeAmout: 0, LikeList: []},
+            {UserName: 'd', Title: '今天下雨了，好冷', Time: '2016-04-06', LikeAmout: 0, LikeList: []},
+            {UserName: 'd', Title: '今天没吃早点呢', Time: '2016-04-07', LikeAmout: 0, LikeList: []},
+
+        ];
+    });
+    app.directive('like', function () {
+        var direction = {};
+        direction.restrict = 'AE';
+        direction.template = '<button ng-click="Like()">点赞</button>'
+
+        //接受dom传值
+        direction.scope = {
+            content: '='
+        };
+        direction.link = function ($scope, element) {
+            $scope.Like = function () {
+                //复用传值
+                $scope.content.LikeList.push({Text:$scope.content.UserName+'点了赞'})
+                $scope.content.LikeAmout = $scope.content.LikeAmout + 1
+
+            };
+        }
+        return direction;
+    })
+
+
+</script>
+</html>
