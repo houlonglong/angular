@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lesson" ng-controller="lesonn11">
+<link href="bower_components/angular/angular-csp.css">
+<head>
+    <meta charset="UTF-8">
+    <title>AngulaJs下单页面开发上</title>
+
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        vertical-align: top;
+        padding: 12px;
+    }
+
+    .buyAmout {
+        width: 30px;
+    }
+</style>
+<body>
+
+<div>
+        <form>
+            <div  ng-show="StepllsOk!=true">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>选中</th>
+                        <th>Id</th>
+                        <th>商品名称</th>
+                        <th>商品编号</th>
+                        <th>商品图片</th>
+                        <th>购买数量</th>
+                        <th>原价</th>
+                        <th>现价</th>
+                        <th>应付</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="p in productlist">
+                        <td><input type="checkbox" ng-model="p.selected"></td>
+                        <td>{{p.productId}}</td>
+                        <td>{{p.productName}}</td>
+                        <td>{{p.productCode}}</td>
+                        <td><img src="{{p.logo}}" width="100" height="50"></td>
+                        <td><input type="text" ng-model="p.buyAmout" class="buyAmout"></td>
+                        <td>{{p.oldPrice}}</td>
+                        <td>{{p.retatilPrice}}</td>
+                        <td>{{p.payment}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button ng-click="confrimStep()">确定商品</button>
+            </div>
+        </form>
+
+    <div ng-show="StepllsOk==true">
+        <ul>
+            <li ng-repeat="p in orderProductList">
+                <b>商品名称:{{p.productName}}</b>.
+                <span>购买数量:{{p.buyAmout}}</span>
+                <b>应付价格:{{p.payment * p.buyAmout }}</b>
+
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+    var app = angular.module('lesson', []);
+    app.controller('lesonn11', function ($scope) {
+        $scope.productlist = [
+            {
+                productId: 1,
+                productName: '耳机',
+                productCode: 'P00001',
+                logo: 'http://img3.imgtn.bdimg.com/it/u=2692649504,3706237217&fm=21&gp=0.jpg',
+                buyAmout: 1,
+                retatilPrice: 1500,
+                oldPrice: 1700,
+                payment: 1500,
+                selected: true
+            },
+            {
+                productId: 2,
+                productName: '电脑',
+                productCode: 'P00002',
+                logo: 'http://img3.imgtn.bdimg.com/it/u=2692649504,3706237217&fm=21&gp=0.jpg',
+                buyAmout: 1,
+                retatilPrice: 15000,
+                oldPrice: 80000,
+                payment: 15000,
+                selected: true
+            },
+            {
+                productId: 3,
+                productName: '乐高积木',
+                productCode: 'P00003',
+                logo: 'http://img3.imgtn.bdimg.com/it/u=2692649504,3706237217&fm=21&gp=0.jpg',
+                buyAmout: 1,
+                retatilPrice: 490,
+                oldPrice: 600,
+                payment: 490,
+                selected: false
+            }
+        ];
+
+        //确定商品
+        $scope.StepllsOk = false;
+        $scope.orderProductList = [];
+        $scope.confrimStep = function () {
+
+            for (var i in  $scope.productlist) {
+                var product = $scope.productlist[i]
+                if (product.selected) {
+                    $scope.orderProductList.push(product)
+                }
+            }
+            $scope.StepllsOk = true;
+
+        }
+    });
+
+
+</script>
+</html>

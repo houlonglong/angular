@@ -1,39 +1,87 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="lesson">
+<html lang="en" ng-app="lesson" ng-controller="lesonn11">
 <link href="bower_components/angular/angular-csp.css">
 <head>
     <meta charset="UTF-8">
-    <title>AngulaJs订单开发模块</title>
-    <style>
-        li {
-            padding: 18px 8px;
-        }
-    </style>
+    <title>AngulaJs订单开发模块上</title>
+
 </head>
-<body ng-controller="FormCtrl">
-
-
+<body >
+<li ng-show="isload">订单加载中...</li>
+<div ng-show="!isload" >
+    <ul ng-repeat="x in orderlist">
+        <li>{{x.orderId}}</li>
+    </ul>
+</div>
 
 </body>
-<script src="bower_components/angular/angular.js"></script>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
 <script>
-    var app = angular.module('lesson', []);
-    app.controller('FormCtrl', function ($scope) {
-         var orderList= [
-             {
-                 orderId : 'GH201603201001',
-                 createTime:'2016-03-20 10:01',
-                 sealer:'专营店卖家',
-                 traffic:'快递已取件',
-                 status:'卖家已经发货'
-
-             }
-         ]
+    var app = angular.module('lesson',[]);
+    app.controller('lesonn11',function($scope) {
+        $scope.orderListBase = [
+            {
+                orderId: 'GH2016032010001',
+                createTime: "2016-30-20 10:01",
+                sealer: '淘宝',
+                traffic: "快递已派送",
+                status: '卖家已经发货',
+                products: [
+                    {
+                        name: '冲锋衣',
+                        desciption: '质量不错,穿着舒服',
+                        price: 200.00,
+                        oldprice: 350.00,
+                        amount: 1,
+                        payment: 200
+                    }
+                ],
+                orderPayment: 200.00
+            },
+            {
+                orderId: 'GH2016032010002',
+                createTime: "2016-30-25 10:01",
+                sealer: '专营店',
+                traffic: "快递已取件",
+                status: '卖家已经发货',
+                products: [
+                    {
+                        name: '足球',
+                        desciption: '世界必备',
+                        price: 200.00,
+                        oldprice: 350.00,
+                        amount: 1,
+                        payment: 200.00
+                    },
+                    {
+                        name: '篮球',
+                        desciption: 'NAB必备',
+                        price: 100.00,
+                        oldprice: 250.00,
+                        amount: 1,
+                        payment: 200.00
+                    }
+                ],
+                orderPayment: 400.00
+            }
 
         ];
+        $scope.orderlist =[];
+
+        $scope.isload = false;
+
+
+        $scope.LoadOrderlist = function(){
+            $scope.isload = false;
+             $scope.orderlist = $scope.orderListBase;
+
+        }
+
+
+
+
+
     });
-
-
 
 
 </script>
