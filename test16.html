@@ -39,7 +39,7 @@
 
 <div>
 
-    <div ng-show="StepllsOk!=true">
+    <div ng-show="!StepllsOk">
         <table>
             <thead>
             <tr>
@@ -68,11 +68,9 @@
             </tr>
             </tbody>
         </table>
-        <button ng-click="confrimStep()">确定购买</button>
+        <button ng-click="confrimStep()">确定商品</button>
     </div>
-
-
-    <div ng-show="StepllsOk==true">
+    <div ng-show="StepllsOk">
         <ul>
             <li ng-repeat="p in orderProductList">
                 <b>商品名称:{{p.productName}}</b>.
@@ -81,27 +79,36 @@
 
             </li>
         </ul>
-        <button ng-click="confrimStep1()">确定商品</button>
-        <form class="anchor" name="AccuntInfo">
+    </div>
+        <form class="anchor" name="AccuntInfo" ng-show="!StepllsOk1">
             <ul>
                 <li>
                     <label>收货人姓名</label>
-                    <input type="text" name="TrueName" ng-model="TrueName" ng-pattern="/^\w{2,5}$/">
+                    <input type="text" name="TrueName" ng-model="TrueName" required ng-pattern="/^\w{2,10}$/">
                     <span ng-show="AccuntInfo.TrueName.$dirty && AccuntInfo.TrueName.$invalid">
                         请输入2到5位收货人姓名
                     </span>
                 </li>
                 <li>
                     <label>手机</label>
-                    <input type="text" name="Phone" ng-model="Phone">
+                    <input type="text" name="Phone" ng-model="Phone"  required ng-pattern="/^[0-9]{11}$/">
+                    <span ng-show="AccuntInfo.Phone.$dirty && AccuntInfo.Phone.$invalid">
+                        请输入正确的手机号
+                    </span>
                 </li>
                 <li>
                     <label>qq</label>
-                    <input type="text" name="QQ" ng-model="QQ">
+                    <input type="text" name="QQ" ng-model="QQ"  required ng-pattern="/^\w[0-9]{5,11}$/">
+                       <span ng-show="AccuntInfo.QQ.$dirty && AccuntInfo.QQ.$invalid">
+                        请输入5到11位号
+                    </span>
                 </li>
                 <li>
                     <label>收货地址:</label>
-                    <input type="text" name="address" ng-model="address">
+                    <input type="text" name="address" ng-model="address" required >
+                    <span ng-show="AccuntInfo.address.$dirty && AccuntInfo.address.$invalid">
+                        请输入收货地址
+                    </span>
                 </li>
                 <li>
                     <p ng-show="!istaitou">
@@ -111,13 +118,22 @@
                         <label>发票抬头:</label>
                         <input type="text" name="taitou" ng-model="taitou">
                     </p>
-
                 </li>
-
             </ul>
+            <button ng-click="confrimStep1()" ng-disabled="AccuntInfo.$invalid">确定个人信息</button>
         </form>
-        <button ng-click="confrimStep1()">确定个人信息</button>
-    </div>
+        <div ng-show="StepllsOk1">
+            <ul>
+                <li>{{TrueName}}</li>
+                <li>{{Phone}}</li>
+                <li>{{QQ}}</li>
+                <li>{{address}}</li>
+                <li>{{taitou}}</li>
+            </ul>
+
+        </div>
+
+
 </div>
 
 </body>
@@ -130,7 +146,7 @@
                 productId: 1,
                 productName: '耳机',
                 productCode: 'P00001',
-                logo: 'http://img3.imgtn.bdimg.com/it/u=2692649504,3706237217&fm=21&gp=0.jpg',
+                logo: './img/1.jpg',
                 buyAmout: 1,
                 retatilPrice: 1500,
                 oldPrice: 1700,
@@ -141,7 +157,7 @@
                 productId: 2,
                 productName: '电脑',
                 productCode: 'P00002',
-                logo: 'http://img3.imgtn.bdimg.com/it/u=2692649504,3706237217&fm=21&gp=0.jpg',
+                logo: './img/2.jpg',
                 buyAmout: 1,
                 retatilPrice: 15000,
                 oldPrice: 80000,
@@ -152,7 +168,7 @@
                 productId: 3,
                 productName: '乐高积木',
                 productCode: 'P00003',
-                logo: 'http://img3.imgtn.bdimg.com/it/u=2692649504,3706237217&fm=21&gp=0.jpg',
+                logo: './img/1.jpg',
                 buyAmout: 1,
                 retatilPrice: 490,
                 oldPrice: 600,
@@ -177,12 +193,12 @@
         };
 
 
-        //确定商品
+        //确定用户信息
         $scope.TrueName = '';
         $scope.Phone = '';
         $scope.QQ = '';
         $scope.address = ''
-        $scope.istaitou = false;
+        $scope.istaitou = true;
         $scope.taitou = '';
         $scope.StepllsOk1 = false;
         $scope.confrimStep1 = function () {
