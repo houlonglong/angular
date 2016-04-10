@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lesson" ng-controller="lesonn11">
+<link href="bower_components/angular/angular-csp.css">
+<head>
+    <meta charset="UTF-8">
+    <title>AngulaJs下单页面开发中</title>
+
+</head>
+<style>
+    ul,li{
+        list-style: none;
+    }
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        vertical-align: top;
+        padding: 12px;
+    }
+
+    .anchor{
+        margin-top: 20px;
+    }
+    .anchor label{
+        width: 120px;
+        text-align: right;
+        display: inline-block;
+    }
+    .anchor ul li span{
+        color: red;
+    }
+    .buyAmout {
+        width: 30px;
+    }
+</style>
+<body>
+
+<div>
+
+    <div ng-show="StepllsOk!=true">
+        <table>
+            <thead>
+            <tr>
+                <th>选中</th>
+                <th>Id</th>
+                <th>商品名称</th>
+                <th>商品编号</th>
+                <th>商品图片</th>
+                <th>购买数量</th>
+                <th>原价</th>
+                <th>现价</th>
+                <th>应付</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="p in productlist">
+                <td><input type="checkbox" ng-model="p.selected"></td>
+                <td>{{p.productId}}</td>
+                <td>{{p.productName}}</td>
+                <td>{{p.productCode}}</td>
+                <td><img src="{{p.logo}}" width="100" height="50"></td>
+                <td><input type="text" ng-model="p.buyAmout" class="buyAmout"></td>
+                <td>{{p.oldPrice}}</td>
+                <td>{{p.retatilPrice}}</td>
+                <td>{{p.payment}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <button ng-click="confrimStep()">确定购买</button>
+    </div>
+
+
+    <div ng-show="StepllsOk==true">
+        <ul>
+            <li ng-repeat="p in orderProductList">
+                <b>商品名称:{{p.productName}}</b>.
+                <span>购买数量:{{p.buyAmout}}</span>
+                <b>应付价格:{{p.payment * p.buyAmout }}</b>
+
+            </li>
+        </ul>
+        <button ng-click="confrimStep1()">确定商品</button>
+        <form class="anchor" name="AccuntInfo">
+            <ul>
+                <li>
+                    <label>收货人姓名</label>
+                    <input type="text" name="TrueName" ng-model="TrueName" ng-pattern="/^\w{2,5}$/">
+                    <span ng-show="AccuntInfo.TrueName.$dirty && AccuntInfo.TrueName.$invalid">
+                        请输入2到5位收货人姓名
+                    </span>
+                </li>
+                <li>
+                    <label>手机</label>
+                    <input type="text" name="Phone" ng-model="Phone">
+                </li>
+                <li>
+                    <label>qq</label>
+                    <input type="text" name="QQ" ng-model="QQ">
+                </li>
+                <li>
+                    <label>收货地址:</label>
+                    <input type="text" name="address" ng-model="address">
+                </li>
+                <li>
+                    <p ng-show="!istaitou">
+                        <input type="checkbox" ng-model="istaitou">需要发票
+                    </p>
+                    <p ng-show="istaitou">
+                        <label>发票抬头:</label>
+                        <input type="text" name="taitou" ng-model="taitou">
+                    </p>
+
+                </li>
+
+            </ul>
+        </form>
+        <button ng-click="confrimStep1()">确定个人信息</button>
+    </div>
+</div>
+
+</body>
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+    var app = angular.module('lesson', []);
+    app.controller('lesonn11', function ($scope) {
+        $scope.productlist = [
+            {
+                productId: 1,
+                productName: '耳机',
+                productCode: 'P00001',
+                logo: 'http://img3.imgtn.bdimg.com/it/u=2692649504,3706237217&fm=21&gp=0.jpg',
+                buyAmout: 1,
+                retatilPrice: 1500,
+                oldPrice: 1700,
+                payment: 1500,
+                selected: true
+            },
+            {
+                productId: 2,
+                productName: '电脑',
+                productCode: 'P00002',
+                logo: 'http://img3.imgtn.bdimg.com/it/u=2692649504,3706237217&fm=21&gp=0.jpg',
+                buyAmout: 1,
+                retatilPrice: 15000,
+                oldPrice: 80000,
+                payment: 15000,
+                selected: true
+            },
+            {
+                productId: 3,
+                productName: '乐高积木',
+                productCode: 'P00003',
+                logo: 'http://img3.imgtn.bdimg.com/it/u=2692649504,3706237217&fm=21&gp=0.jpg',
+                buyAmout: 1,
+                retatilPrice: 490,
+                oldPrice: 600,
+                payment: 490,
+                selected: false
+            }
+        ];
+
+        //确定购买
+        $scope.StepllsOk = false;
+        $scope.orderProductList = [];
+        $scope.confrimStep = function () {
+
+            for (var i in  $scope.productlist) {
+                var product = $scope.productlist[i]
+                if (product.selected) {
+                    $scope.orderProductList.push(product)
+                }
+            }
+            $scope.StepllsOk = true;
+
+        };
+
+
+        //确定商品
+        $scope.TrueName = '';
+        $scope.Phone = '';
+        $scope.QQ = '';
+        $scope.address = ''
+        $scope.istaitou = false;
+        $scope.taitou = '';
+        $scope.StepllsOk1 = false;
+        $scope.confrimStep1 = function () {
+
+
+            $scope.StepllsOk1 = true;
+        }
+    });
+
+
+</script>
+</html>
